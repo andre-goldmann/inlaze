@@ -10,7 +10,7 @@ import { StoreService } from '../store/store.service';
 export class PostsService {
   constructor(
     private httpClient: HttpClient,
-    private storeService: StoreService,
+    private storeService: StoreService
   ) {}
 
   public getPosts(): Observable<Post[]> {
@@ -37,7 +37,7 @@ export class PostsService {
     });
     return this.httpClient.get<Post[]>(
       'http://localhost:3000/api/posts/search?query=' + filter,
-      { headers },
+      { headers }
     );
   }
 
@@ -47,7 +47,7 @@ export class PostsService {
     });
     return this.httpClient.delete<void>(
       'http://localhost:3000/api/post/delete?id=' + post.id,
-      { headers },
+      { headers }
     );
   }
 

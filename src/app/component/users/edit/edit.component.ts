@@ -27,7 +27,7 @@ export class EditComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UsersService,
-    public storeService: StoreService,
+    public storeService: StoreService
   ) {
     const user = storeService.getUser();
     this.editForm.patchValue({
@@ -39,10 +39,8 @@ export class EditComponent {
   }
 
   onSubmit() {
-    this.userService
-      .updateUser(this.editForm.getRawValue())
-      .subscribe((user) => {
-        this.storeService.setUser(user);
-      });
+    this.userService.updateUser(this.editForm.getRawValue()).subscribe(user => {
+      this.storeService.setUser(user);
+    });
   }
 }

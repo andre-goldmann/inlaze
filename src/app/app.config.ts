@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       }),
       withRouterConfig({
         onSameUrlNavigation: 'reload',
-      }),
+      })
     ),
     importProvidersFrom(BrowserModule, FormsModule, CommonModule),
     provideAnimations(),

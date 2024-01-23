@@ -29,7 +29,7 @@ export class RegistrationComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private storeService: StoreService,
+    private storeService: StoreService
   ) {}
 
   onSubmit() {
@@ -38,17 +38,17 @@ export class RegistrationComponent {
       this.http
         .post<User>(
           'http://localhost:3000/api/register',
-          this.registrationForm.getRawValue(),
+          this.registrationForm.getRawValue()
         )
         .subscribe(
-          (user) => {
+          user => {
             console.log('Registered successfully:', user);
             this.storeService.setUser(user);
             this.router.navigateByUrl('/posts');
           },
-          (error) => {
+          error => {
             console.error('Form submission error:', error);
-          },
+          }
         );
     }
   }

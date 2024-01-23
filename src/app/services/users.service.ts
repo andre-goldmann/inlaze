@@ -10,7 +10,7 @@ import { StoreService } from '../store/store.service';
 export class UsersService {
   constructor(
     private httpClient: HttpClient,
-    private storeService: StoreService,
+    private storeService: StoreService
   ) {}
 
   public getUsers(): Observable<User[]> {

@@ -34,7 +34,7 @@ export class PostsComponent {
   constructor(
     private postsService: PostsService,
     private storeService: StoreService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.posts$ = postsService.getPosts();
   }
@@ -47,7 +47,7 @@ export class PostsComponent {
       this.newPost.content.trim() !== ''
     ) {
       this.newPost.userId = user.id;
-      this.postsService.addPost(this.newPost).subscribe((data) => {
+      this.postsService.addPost(this.newPost).subscribe(data => {
         // Todo optimize this
         this.posts$ = this.postsService.getPosts();
       });
@@ -72,7 +72,7 @@ export class PostsComponent {
       this.storeService.getUser().id != undefined &&
       this.storeService.getUser().id === post.userId
     ) {
-      this.postsService.deletePost(post).subscribe((e) => {
+      this.postsService.deletePost(post).subscribe(e => {
         // Todo optimize this
         this.posts$ = this.postsService.getPosts();
       });
@@ -80,7 +80,7 @@ export class PostsComponent {
   }
 
   submitEditForm() {
-    this.postsService.updatePost(this.editForm.getRawValue()).subscribe((e) => {
+    this.postsService.updatePost(this.editForm.getRawValue()).subscribe(e => {
       // Todo optimize this
       this.posts$ = this.postsService.getPosts();
     });

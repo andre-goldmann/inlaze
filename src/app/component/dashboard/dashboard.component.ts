@@ -31,7 +31,7 @@ export class DashboardComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    public storeService: StoreService,
+    public storeService: StoreService
   ) {}
 
   onSubmit() {
@@ -40,20 +40,20 @@ export class DashboardComponent {
       this.http
         .post<LoginResponse>(
           'http://localhost:3000/api/login',
-          this.loginForm.getRawValue(),
+          this.loginForm.getRawValue()
         )
         .subscribe(
-          (response) => {
+          response => {
             console.log('Logged in successfully:', response);
             this.isLoggedIn = true;
             this.storeService.setUser(response.user);
             this.storeService.setToken(response.token);
             this.router.navigateByUrl('/posts');
           },
-          (error) => {
+          error => {
             this.isLoggedIn = false;
             console.error('Form submission error:', error);
-          },
+          }
         );
     }
   }
