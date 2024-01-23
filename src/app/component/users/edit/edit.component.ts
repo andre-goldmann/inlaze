@@ -25,7 +25,7 @@ export class EditComponent {
   constructor(private fb: FormBuilder,
               private userService:UsersService,
               public storeService:StoreService) {
-    let user = storeService.getUser();
+    const user = storeService.getUser();
     this.editForm.patchValue({
       userId: user.id,
       fullName: user.fullName,

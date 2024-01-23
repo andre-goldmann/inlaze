@@ -1,4 +1,4 @@
-import {Injectable, signal, effect } from '@angular/core';
+import {Injectable, signal } from '@angular/core';
 import {User} from "../models/models";
 
 @Injectable({
@@ -7,14 +7,10 @@ import {User} from "../models/models";
 export class StoreService {
 
   user = signal({} as User);
-  token = signal('');
-
-  constructor() { }
-
+  token = signal('')
   setUser(user: User) {
     this.user.set(user);
   }
-
   setToken(token: string) {
     this.token.set(token);
   }

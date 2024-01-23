@@ -1,10 +1,10 @@
 import {Router, RouterModule} from "@angular/router";
 import {PostsComponent} from "../posts/posts.component";
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {StoreService} from "../../store/store.service";
-import {LoginResponse, User} from "../../models/models";
+import {LoginResponse} from "../../models/models";
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +35,6 @@ export class DashboardComponent {
       console.log('Login successful!', this.loginForm.value);
       this.http.post<LoginResponse>('http://localhost:3000/api/login', this.loginForm.getRawValue())
         .subscribe(response => {
-          //token: token, user: user[0]}
           console.log('Logged in successfully:', response);
           this.isLoggedIn = true;
           this.storeService.setUser(response.user);

@@ -1,12 +1,10 @@
-import {Component, Input, OnInit, Signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {Post} from "../../models/models";
 import {PostsService} from "../../services/posts.service";
 import {Observable} from "rxjs";
 import {CommonModule} from "@angular/common";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {StoreService} from "../../store/store.service";
-import { initFlowbite } from 'flowbite';
-
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +15,7 @@ import { initFlowbite } from 'flowbite';
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
 })
-export class PostsComponent implements OnInit{
+export class PostsComponent {
 
   editForm: FormGroup = this.fb.group({
     postId: [0],
@@ -36,19 +34,15 @@ export class PostsComponent implements OnInit{
     this.posts$ = postsService.getPosts();
   }
 
-  ngOnInit(): void {
-    initFlowbite();
-  }
-
   addPost() {
-    let user = this.storeService.getUser();
+    const user = this.storeService.getUser();
     if (user.id !== undefined && this.newPost.title.trim() !== '' && this.newPost.content.trim() !== '') {
       this.newPost.userId = user.id;
       this.postsService.addPost(this.newPost).subscribe((data) => {
+        // Todo optimize this
         this.posts$ = this.postsService.getPosts();
       });
     }
-
   }
 
   search() {

@@ -4,8 +4,6 @@ import {Observable} from "rxjs";
 import {User} from "../models/models";
 import {StoreService} from "../store/store.service";
 
-
-
 @Injectable({
   providedIn: 'root'
 })
