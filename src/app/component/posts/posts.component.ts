@@ -1,26 +1,29 @@
-import {Component} from '@angular/core';
-import {Post} from "../../models/models";
-import {PostsService} from "../../services/posts.service";
-import {Observable} from "rxjs";
-import {CommonModule} from "@angular/common";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {StoreService} from "../../store/store.service";
+import { Component } from '@angular/core';
+import { Post } from '../../models/models';
+import { PostsService } from '../../services/posts.service';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { StoreService } from '../../store/store.service';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [
-    CommonModule, FormsModule, ReactiveFormsModule
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss'
+  styleUrl: './posts.component.scss',
 })
 export class PostsComponent {
-
   editForm: FormGroup = this.fb.group({
     postId: [0],
     editTitle: ['', Validators.required],
-    editCcontent: ['', Validators.required]
+    editCcontent: ['', Validators.required],
   });
 
   posts$: Observable<Post[]>;
@@ -28,15 +31,21 @@ export class PostsComponent {
 
   searchStr!: string;
 
-  constructor(private postsService:PostsService,
-              private storeService:StoreService,
-              private fb: FormBuilder) {
+  constructor(
+    private postsService: PostsService,
+    private storeService: StoreService,
+    private fb: FormBuilder,
+  ) {
     this.posts$ = postsService.getPosts();
   }
 
   addPost() {
     const user = this.storeService.getUser();
-    if (user.id !== undefined && this.newPost.title.trim() !== '' && this.newPost.content.trim() !== '') {
+    if (
+      user.id !== undefined &&
+      this.newPost.title.trim() !== '' &&
+      this.newPost.content.trim() !== ''
+    ) {
       this.newPost.userId = user.id;
       this.postsService.addPost(this.newPost).subscribe((data) => {
         // Todo optimize this
@@ -49,15 +58,21 @@ export class PostsComponent {
     this.posts$ = this.postsService.serchPosts(this.searchStr);
   }
 
-  like(post:Post) {
-    if(this.storeService.getUser().id != undefined && this.storeService.getUser().id !== post.userId) {
+  like(post: Post) {
+    if (
+      this.storeService.getUser().id != undefined &&
+      this.storeService.getUser().id !== post.userId
+    ) {
       post.likes += 1;
     }
   }
 
   delete(post: Post) {
-    if(this.storeService.getUser().id != undefined && this.storeService.getUser().id === post.userId){
-      this.postsService.deletePost(post).subscribe(e => {
+    if (
+      this.storeService.getUser().id != undefined &&
+      this.storeService.getUser().id === post.userId
+    ) {
+      this.postsService.deletePost(post).subscribe((e) => {
         // Todo optimize this
         this.posts$ = this.postsService.getPosts();
       });
@@ -65,12 +80,10 @@ export class PostsComponent {
   }
 
   submitEditForm() {
-    this.postsService.updatePost(this.editForm.getRawValue()).subscribe(
-      e=> {
-        // Todo optimize this
-        this.posts$ = this.postsService.getPosts();
-      }
-    );
+    this.postsService.updatePost(this.editForm.getRawValue()).subscribe((e) => {
+      // Todo optimize this
+      this.posts$ = this.postsService.getPosts();
+    });
   }
 
   setPost(post: Post) {

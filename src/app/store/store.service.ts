@@ -1,13 +1,12 @@
-import {Injectable, signal } from '@angular/core';
-import {User} from "../models/models";
+import { Injectable, signal } from '@angular/core';
+import { User } from '../models/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoreService {
-
   user = signal({} as User);
-  token = signal('')
+  token = signal('');
   setUser(user: User) {
     this.user.set(user);
   }
@@ -15,11 +14,11 @@ export class StoreService {
     this.token.set(token);
   }
 
-  public getUser():User{
+  public getUser(): User {
     return this.user();
   }
 
-  authToken():string {
+  authToken(): string {
     return this.token();
   }
 }
