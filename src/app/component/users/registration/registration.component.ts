@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StoreService } from '../../../store/store.service';
 import { User } from '../../../models/models';
+import {HOST} from "../../../app.config";
 @Component({
   selector: 'app-registration',
   standalone: true,
@@ -37,7 +38,7 @@ export class RegistrationComponent {
       console.log('Login successful!', this.registrationForm.value);
       this.http
         .post<User>(
-          'http://localhost:3000/api/register',
+          HOST + '/api/register',
           this.registrationForm.getRawValue()
         )
         .subscribe(

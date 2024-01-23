@@ -10,6 +10,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { StoreService } from '../../store/store.service';
 import { LoginResponse } from '../../models/models';
+import {HOST} from "../../app.config";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ import { LoginResponse } from '../../models/models';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+
   isLoggedIn: boolean = false;
 
   loginForm: FormGroup = this.fb.group({
@@ -39,7 +41,7 @@ export class DashboardComponent {
       console.log('Login successful!', this.loginForm.value);
       this.http
         .post<LoginResponse>(
-          'http://localhost:3000/api/login',
+          HOST + '/api/login',
           this.loginForm.getRawValue()
         )
         .subscribe(

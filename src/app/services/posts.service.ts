@@ -3,11 +3,13 @@ import { Observable } from 'rxjs';
 import { Post } from '../models/models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StoreService } from '../store/store.service';
+import {HOST} from "../app.config";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
+
   constructor(
     private httpClient: HttpClient,
     private storeService: StoreService
@@ -17,7 +19,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
-    return this.httpClient.get<Post[]>('http://localhost:3000/api/posts', {
+    return this.httpClient.get<Post[]>(HOST + '/api/posts', {
       headers,
     });
   }
@@ -26,7 +28,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
-    return this.httpClient.post<Post>('http://localhost:3000/api/post', post, {
+    return this.httpClient.post<Post>(HOST + '/api/post', post, {
       headers,
     });
   }
@@ -36,7 +38,7 @@ export class PostsService {
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
     return this.httpClient.get<Post[]>(
-      'http://localhost:3000/api/posts/search?query=' + filter,
+      HOST + '/api/posts/search?query=' + filter,
       { headers }
     );
   }
@@ -46,7 +48,7 @@ export class PostsService {
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
     return this.httpClient.delete<void>(
-      'http://localhost:3000/api/post/delete?id=' + post.id,
+      HOST + '/api/post/delete?id=' + post.id,
       { headers }
     );
   }
@@ -55,7 +57,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
-    return this.httpClient.put<void>('http://localhost:3000/api/post', post, {
+    return this.httpClient.put<void>(HOST + '/api/post', post, {
       headers,
     });
   }

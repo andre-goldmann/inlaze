@@ -15,6 +15,8 @@ import {
 } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+export const HOST = 'http://localhost:3000';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(

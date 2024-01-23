@@ -3,11 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/models';
 import { StoreService } from '../store/store.service';
+import {HOST} from "../app.config";
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+
   constructor(
     private httpClient: HttpClient,
     private storeService: StoreService
@@ -18,7 +20,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
-    return this.httpClient.get<User[]>('http://localhost:3000/api/users', {
+    return this.httpClient.get<User[]>(HOST + '/api/users', {
       headers,
     });
   }
@@ -28,7 +30,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.storeService.authToken()}`,
     });
-    return this.httpClient.put<User>('http://localhost:3000/api/user', user, {
+    return this.httpClient.put<User>(HOST + '/api/user', user, {
       headers,
     });
   }
